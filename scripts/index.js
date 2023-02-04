@@ -20,14 +20,13 @@ for (let row = 1; row <= 8; row++) {
 
 async function renderKnight(path) {
 	const timer = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-	for (const square of path) {
+	for (const [index, square] of path.entries()) {
 		console.log(square)
 		document.querySelector('.square img').remove()
 		const image = new Image()
 		image.src = 'assets/knight.svg'
 		document.getElementById(`${square[0]}-${square[1]}`).append(image)
-		await timer(1000)
+		if (index < path.length - 1) await timer(1000) // no delay after final move
 	}
 	const [finishRow, finishCol] = path[path.length - 1]
 	knight = { row: finishRow, col: finishCol }
